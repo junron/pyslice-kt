@@ -2,6 +2,8 @@ import dev.junron.pyslice.NegativeIndex
 import dev.junron.pyslice.PythonSlice
 import dev.junron.pyslice.get
 
+//metadebug
+
 @NegativeIndex
 @PythonSlice
 fun main() {
@@ -22,4 +24,7 @@ fun main() {
     // Replace
     val index = 5
     println(string[:index]+"!"+string[index+1:])
+    val list = listOf(1,2,3,4)
+    println(list[null, 1])
+    println(list[::-1])
 }
