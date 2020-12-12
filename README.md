@@ -29,11 +29,10 @@ fun main() {
 ```
 
 ## Known bugs/future improvements
-1. Import `import dev.junron.pyslice.get` is not automatically inserted by the plugin
-2. Add support for collections other than strings
-3. The regex is probably really sketchy
-4. Find out how to package and distribute this
-5. Write Intellij plugin
+1. Add support for collections other than strings
+2. Replace regex-based implementation with AST
+3. Find out how to package and distribute this
+4. Write Intellij plugin
 
 
 ## References

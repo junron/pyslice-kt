@@ -12,6 +12,7 @@ import org.jetbrains.kotlin.psi.KtAnnotationEntry
 import org.jetbrains.kotlin.psi.KtNamedFunction
 import org.jetbrains.kotlin.psi.KtUserType
 import org.jetbrains.kotlin.psi.psiUtil.visibilityModifier
+import org.jetbrains.kotlin.resolve.ImportPath
 import org.jetbrains.kotlin.utils.addToStdlib.safeAs
 import kotlin.contracts.ExperimentalContracts
 
@@ -26,6 +27,15 @@ annotation class NegativeIndex
 val Meta.pythonSlice: CliPlugin
     get() = "PythonSlice" {
         meta(
+            extraImports { file ->
+                val imports =
+                    file.importDirectives.map { it.importPath?.pathStr }
+                if ("dev.junron.pyslice.PythonSlice" in imports && "dev.junron.pyslice.get" !in imports) {
+                    return@extraImports listOf(importDirective(ImportPath.fromString(
+                        "dev.junron.pyslice.get")).value!!)
+                }
+                return@extraImports emptyList()
+            },
             namedFunction(this,
                 { hasAnnotation("NegativeIndex") || hasAnnotation("PythonSlice") }) { fn ->
                 Transform.replace(
